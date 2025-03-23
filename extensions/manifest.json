@@ -1,0 +1,45 @@
+{
+    "manifest_version": 3,
+    "name": "FishGuard",
+    "version": "1.0.0",
+    "description": "Protects users from phishing links and fake job postings on Gmail and LinkedIn",
+    "icons": {
+      "16": "icons/icon16.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    },
+    "permissions": [
+      "storage",
+      "activeTab",
+      "scripting",
+      "alarms"
+
+    ],
+    "host_permissions": [
+      "https://mail.google.com/*",
+      "https://*.linkedin.com/*"
+    ],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [
+      {
+        "matches": ["https://mail.google.com/*"],
+        "js": ["common.js", "gmail.js"],
+        "css": ["styles.css"]
+      },
+      {
+        "matches": ["https://*.linkedin.com/*"],
+        "js": ["common.js", "linkedin.js"],
+        "css": ["styles.css"]
+      }
+    ],
+    "action": {
+      "default_popup": "popup.html",
+      "default_icon": {
+        "16": "icons/icon16.png",
+        "48": "icons/icon48.png",
+        "128": "icons/icon128.png"
+      }
+    }
+  }

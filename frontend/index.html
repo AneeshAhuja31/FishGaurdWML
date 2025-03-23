@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fish Gaurd</title>
+    <script src="https://kit.fontawesome.com/be3f490722.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <header>
+        <div class="logo">
+            <div class="logo-circle"><img src="./icons/FISH.png" alt="" class="logo-img"></div>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#">Our Contributors</a></li>
+                <li><a href="pricing.html" id="price" onclick="addPrice()">Pricing</a></li>
+                <li><a href="#">Testimonials</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- <div class="status-banner">
+            <button class="status-button">Signups closed <span class="arrow">→</span></button>
+        </div> -->
+
+        <div class="hero">
+            <div class="mainheading">
+                Stay Vigilant, Stay Safe Say No to
+            </div>
+            <div class="innerheading"> Phishing! </div>
+            <div>
+            <div>
+                <img class="imghero1" src="/icons/double-underline.svg ">
+
+            </div>
+            <p class="subtitle">Providing a Chrome Based Extension Service To protect you from Phising Scams... Say No To Phising!</p>
+        </div>
+
+        <div class="buttons1">
+            <button class="cta-primary"> <span class="chromeicon"><i class="fa-brands fa-chrome"></i> </span>Download<span class="arrow">→</span></button>
+            <button class="cta-secondary" id="scrollButton"><span class="icon">✦</span> Learn More</button>
+        </div>
+
+        <div class="endinglogo">
+            <div class="container">
+              <a class="btn1" href="main.html">
+                  <span>Don't take the bait—FishGuard's got your back!</span>
+                  <!-- <span class="icon">😇</span> -->
+              </a>
+            </div>
+        </div>
+
+          <div class="workflow">
+                <div class="workflow1" >
+                    <div class="workflow1img">
+                         <div class="cont">
+      <div class="card">
+        <div class="image">
+          <img
+            href="#"
+            src="./icons/WhatsApp Image 2025-03-21 at 08.25.43_62dee83d.jpg"
+          />
+        </div>  
+        <div class="content1">
+          <h3>URL ANALYSIS</h3>
+          <p>
+            The email in the image is a classic example of a phishing attempt. Real-time phishing detection systems can help prevent users from falling for such scams by analyzing different elements of the email in real time.
+          </p>
+        </div>
+      </div>
+    </div>
+                    </div>
+                    <div class="workflow1content" id="workflow1start" >
+                        <div class="contentheading">
+                            1. Real Time URL Analysis
+                        </div>
+                        <div class="content">
+                            FishGuard employs real-time URL analysis to instantly detect phishing links. Leveraging advanced algorithms, the platform analyzes characteristics of URLs to assess their legitimacy and alerts users before they can be harmed.
+                        </div>
+                    </div>
+                </div>
+                <div class="workflow2">
+                    <div class="workflow2content">
+                        <div class="contentheading">
+                            2. Phising Alerts and Statistics
+                        </div>
+                        <div class="content2">
+                            Fish Gaurd Provides Live count results of malicious links on your mail and Linkedin, Protects you from Scammers by flagging links on your site in live action!
+                        </div>
+                    </div>  
+                    <div class="workflow2img">
+                        <div class="cont">
+                            <div class="card">
+                              <div class="image">
+                                <img
+                                  href="#"
+                                  src="./icons/WhatsApp Image 2025-03-21 at 08.25.58.jpeg"
+                                />
+                              </div>  
+                              <div class="content1">
+                                <h3>Live Detection Stats:</h3>
+                                <p>
+                                
+
+Phishing Links Detected: 6
+
+Suspicious Jobs Identified: 0
+
+Malicious Jobs Flagged: 0
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+                    <!-- <div class="workflow2content">
+                        <div class="contentheading">
+                            2. Phising Alerts and Statistics
+                        </div>
+                        <div class="content">
+    
+                        </div>
+                    </div> -->
+
+                </div>
+                <div class="workflow3">
+                        <div class="workflow1img">
+                             <div class="cont">
+          <div class="card">
+            <div class="image">
+              <img
+                href="#"
+                src="./icons/workflow3.jpg"
+              />
+            </div>  
+            <div class="content1">
+              <h3>Phishing detection for Linkedin</h3>
+              <p>
+                The image shows a LinkedIn phishing attempt, where an attacker impersonates a recruiter or company representative to trick users into clicking a malicious link. 
+              </p>
+            </div>
+          </div>
+        </div>
+                        </div>
+                        <div class="workflow1content">
+                            <div class="contentheading">
+                                3. Multi Platform Suited
+                            </div>
+                            <div class="content">
+                              Our website detects phishing links in LinkedIn messages using **Web scraping methods** to extract message content. The scraped URLs are analyzed for phishing indicators, such as lookalike domains, insecure HTTP connections, and known malicious links. If a threat is detected, users receive **real-time alerts**, ensuring safer browsing and protection against scams.
+                            </div>
+                        </div>
+                    </div>
+            
+          </div>
+    </main>
+    <div class="inputurldes">
+      Tag your URL manually!
+    </div>
+    <div class="inputurldesmore">
+      Providing Users to tag URL according to their preference 
+    </div>
+    <div class="tag">
+      <form class="input-container" id="url-form">
+        <input type="text" id="url-input" placeholder="Enter your URL">
+        <button type="button" class="btn" id="tag-button"><i class="fa-regular fa-circle-check"></i>Tag</button>
+        <button type="button" class="btn1" id="untag-button"><i class="fa-regular fa-circle-xmark"></i> Untag</button>
+      </form>
+      <div id="notification-container"></div>
+    </div>
+</div>
+
+    <footer>
+        <div class="partners">
+            <!-- Partner logos would go here -->
+        </div>
+    </footer>
+
+    <script src="stars.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

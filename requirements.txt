@@ -1,0 +1,14 @@
+pymongo
+bs4
+joblib
+fastapi
+uvicorn
+google-generativeai
+google
+jwt
+pyjwt
+pytest 
+pytest-asyncio 
+httpx 
+pytest-cov
+python-dotenv

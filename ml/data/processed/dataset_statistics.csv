@@ -1,0 +1,11 @@
+Metric,Value
+Total URLs,11430.0
+Unique URLs,11429.0
+Phishing URLs,5715.0
+Legitimate URLs,5715.0
+Average URL Length,61.120034995625545
+Max URL Length,1641.0
+Min URL Length,12.0
+Unique Domains,7621.0
+HTTPS URLs,4447.0
+HTTP URLs,6983.0
