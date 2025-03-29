@@ -46,7 +46,7 @@ class GoogleSearchClient:
         except Exception as e:
             print(f"Error fetching URL content: {str(e)}")
             return ""
-    
+
     async def search_job(self, url: str) -> Dict[str, Any]:
         """
         Analyze a job posting URL to determine if it's potentially fake
@@ -123,7 +123,7 @@ class GoogleSearchClient:
                             risk_signals -= 1
             
             # Determine if the job is likely fake based on signals
-            is_phishing = 1 if (risk_signals > 0 or scam_results_count > legitimate_results_count) else 0
+            is_phishing = None if scam_results_count == 0 and legitimate_results_count == 0 else (1 if risk_signals > 0 or scam_results_count > legitimate_results_count else 0)
             
             return {
                 "is_phishing": is_phishing,
@@ -139,78 +139,6 @@ class GoogleSearchClient:
             
         except Exception as e:
             print(f"Error in Google Search API job analysis: {str(e)}")
-            return {"is_phishing": 1, "source": "google_search_api_error", "error": str(e)}
+            return {"is_phishing": None, "source": "google_search_api_error", "error": str(e)}
     
-    async def check_url(self, url: str) -> Dict[str, Any]:
-        """
-        Check a general URL for phishing indicators using Google Search
-        
-        Returns:
-            Dict with is_phishing (1 for phishing, 0 for legitimate), source, and other metadata
-        """
-        if not self.service:
-            return {"is_phishing": 1, "source": "google_search_api_unavailable"}
-        
-        try:
-            # Extract domain for analysis
-            domain_match = re.search(r'https?://(?:www\.)?([^/]+)', url)
-            if domain_match:
-                domain = domain_match.group(1)
-            else:
-                domain = url
-            
-            # Build search queries
-            search_queries = [
-                f"\"{domain}\" phishing OR scam OR malicious",
-                f"\"{url}\" phishing OR scam OR malicious",
-                f"\"{domain}\" legitimate OR safe"
-            ]
-            
-            # Track risk signals
-            risk_signals = 0
-            phishing_results_count = 0
-            legitimate_results_count = 0
-            
-            # Execute searches
-            for query in search_queries:
-                search_results = self.service.cse().list(
-                    q=query,
-                    cx=self.search_engine_id,
-                    num=10
-                ).execute()
-                
-                # Analyze search results
-                items = search_results.get('items', [])
-                for item in items:
-                    snippet = item.get('snippet', '').lower()
-                    title = item.get('title', '').lower()
-                    
-                    # Check for phishing indicators
-                    if 'phishing' in snippet or 'scam' in snippet or 'malicious' in snippet:
-                        if 'not phishing' not in snippet and 'isn\'t a scam' not in snippet:
-                            phishing_results_count += 1
-                            risk_signals += 1
-                    
-                    # Check for legitimacy indicators
-                    if 'legitimate' in snippet or 'safe' in snippet:
-                        if 'not legitimate' not in snippet and 'not safe' not in snippet:
-                            legitimate_results_count += 1
-                            risk_signals -= 1
-            
-            # Determine if the URL is likely phishing based on signals
-            is_phishing = 1 if (risk_signals > 0 or phishing_results_count > legitimate_results_count) else 0
-            
-            return {
-                "is_phishing": is_phishing,
-                "source": "google_search_api",
-                "details": {
-                    "risk_signals": risk_signals,
-                    "phishing_results": phishing_results_count,
-                    "legitimate_results": legitimate_results_count,
-                    "domain": domain
-                }
-            }
-            
-        except Exception as e:
-            print(f"Error in Google Search API URL analysis: {str(e)}")
-            return {"is_phishing": 1, "source": "google_search_api_error", "error": str(e)}
+    

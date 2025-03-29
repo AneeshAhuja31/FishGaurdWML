@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus\browser_decorator.py", line 200, in run_task
+    result = func(driver, data)
+TypeError: scrape_job_posting.<locals>.scrape() takes 1 positional argument but 2 were given

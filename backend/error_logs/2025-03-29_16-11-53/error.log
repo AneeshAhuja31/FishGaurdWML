@@ -1,0 +1,75 @@
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus\browser_decorator.py", line 200, in run_task
+    result = func(driver, data)
+  File "C:\Users\HP\OneDrive\Desktop\FishGaurdUpdated\backend\botsaurapp.py", line 224, in scrape_job_posting
+    from botasaurus.browser import Wait
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\driver.py", line 1053, in wait_for_element
+    self, self._tab, self._tab.wait_for(selector, timeout=wait)
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\core\tab.py", line 1309, in wait_for
+    raise ElementWithSelectorNotFoundException(selector)
+botasaurus_driver.exceptions.ElementWithSelectorNotFoundException: Cannot find element with selector: 'h1'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus\browser_decorator.py", line 200, in run_task
+    result = func(driver, data)
+  File "C:\Users\HP\OneDrive\Desktop\FishGaurdUpdated\backend\botsaurapp.py", line 224, in scrape_job_posting
+    from botasaurus.browser import Wait
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\driver.py", line 1053, in wait_for_element
+    self, self._tab, self._tab.wait_for(selector, timeout=wait)
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\core\tab.py", line 1309, in wait_for
+    raise ElementWithSelectorNotFoundException(selector)
+botasaurus_driver.exceptions.ElementWithSelectorNotFoundException: Cannot find element with selector: 'h1'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus\browser_decorator.py", line 200, in run_task
+    result = func(driver, data)
+  File "C:\Users\HP\OneDrive\Desktop\FishGaurdUpdated\backend\botsaurapp.py", line 224, in scrape_job_posting
+    from botasaurus.browser import Wait
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\driver.py", line 1053, in wait_for_element
+    self, self._tab, self._tab.wait_for(selector, timeout=wait)
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\core\tab.py", line 1309, in wait_for
+    raise ElementWithSelectorNotFoundException(selector)
+botasaurus_driver.exceptions.ElementWithSelectorNotFoundException: Cannot find element with selector: 'h1'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus\browser_decorator.py", line 200, in run_task
+    result = func(driver, data)
+  File "C:\Users\HP\OneDrive\Desktop\FishGaurdUpdated\backend\botsaurapp.py", line 224, in scrape_job_posting
+    from botasaurus.browser import Wait
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\driver.py", line 1053, in wait_for_element
+    self, self._tab, self._tab.wait_for(selector, timeout=wait)
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\core\tab.py", line 1309, in wait_for
+    raise ElementWithSelectorNotFoundException(selector)
+botasaurus_driver.exceptions.ElementWithSelectorNotFoundException: Cannot find element with selector: 'h1'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus\browser_decorator.py", line 200, in run_task
+    result = func(driver, data)
+  File "C:\Users\HP\OneDrive\Desktop\FishGaurdUpdated\backend\botsaurapp.py", line 224, in scrape_job_posting
+    from botasaurus.browser import Wait
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\driver.py", line 1053, in wait_for_element
+    self, self._tab, self._tab.wait_for(selector, timeout=wait)
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\core\tab.py", line 1309, in wait_for
+    raise ElementWithSelectorNotFoundException(selector)
+botasaurus_driver.exceptions.ElementWithSelectorNotFoundException: Cannot find element with selector: 'h1'.
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus\browser_decorator.py", line 200, in run_task
+    result = func(driver, data)
+  File "C:\Users\HP\OneDrive\Desktop\FishGaurdUpdated\backend\botsaurapp.py", line 224, in scrape_job_posting
+    from botasaurus.browser import Wait
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\driver.py", line 1053, in wait_for_element
+    self, self._tab, self._tab.wait_for(selector, timeout=wait)
+  File "C:\Users\HP\anaconda3\envs\my_env\lib\site-packages\botasaurus_driver\core\tab.py", line 1309, in wait_for
+    raise ElementWithSelectorNotFoundException(selector)
+botasaurus_driver.exceptions.ElementWithSelectorNotFoundException: Cannot find element with selector: 'h1'.
