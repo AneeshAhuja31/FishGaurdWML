@@ -16,6 +16,7 @@ import logging
 import sys
 import asyncio
 import google.generativeai as genai
+from mongodb_client import MongoDBClient
 
 # Import Botasaurus
 from botasaurus.browser import browser,Driver
@@ -47,6 +48,7 @@ async def lifespan(app:FastAPI):
             decode_responses=True
         )
         await FastAPILimiter.init(redis_client)
+        app.state.mongo_client = MongoDBClient()
         logger.info("Application startup complete - Redis initialized")
 
         yield
@@ -74,7 +76,7 @@ app.add_middleware(
 
 class JobSearchRequest(BaseModel):
     url: HttpUrl
-
+    user_id: Optional[str] = None
     @field_validator("url")
     @classmethod
     def validate_url(cls, url):
@@ -105,23 +107,23 @@ class JobSearchRequest(BaseModel):
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 nlp = spacy.load('en_core_web_sm')
 
-# Function to preprocess input text for the BERT model
-def prepare_sample(text):
-    try:
-        encoding = tokenizer.encode_plus(
-            text,
-            add_special_tokens=True,
-            max_length=128,
-            return_token_type_ids=False,
-            padding='max_length',
-            return_attention_mask=True,
-            return_tensors='pt',
-            truncation=True
-        )
-        return encoding['input_ids'], encoding['attention_mask']
-    except Exception as e:
-        logger.error(f"Text preparation error: {e}")
-        raise
+# # Function to preprocess input text for the BERT model
+# def prepare_sample(text):
+#     try:
+#         encoding = tokenizer.encode_plus(
+#             text,
+#             add_special_tokens=True,
+#             max_length=128,
+#             return_token_type_ids=False,
+#             padding='max_length',
+#             return_attention_mask=True,
+#             return_tensors='pt',
+#             truncation=True
+#         )
+#         return encoding['input_ids'], encoding['attention_mask']
+#     except Exception as e:
+#         logger.error(f"Text preparation error: {e}")
+#         raise
 
 # def predict(text):
 #     try:
@@ -386,6 +388,7 @@ async def analyze_job(request: Request):
     try:
         body = await request.json()
         url = body.get('url')
+        user_id = body.get('user_id')
         
         if not url:
             raise HTTPException(status_code=422, detail="URL is required")
@@ -399,6 +402,17 @@ async def analyze_job(request: Request):
                 "job_details": {},
                 "error": "Only HTTP and HTTPS URLs are supported"
             }
+        # First, check if the URL exists in MongoDB
+        mongo_client = app.state.mongo_client
+        cached_result = mongo_client.get_job_by_url(url)
+        
+        if cached_result:
+            logger.info(f"Retrieved cached result for URL: {url}")
+            return cached_result
+        
+        # If not in DB, proceed with scraping and analysis
+        logger.info(f"No cached result found for URL: {url}, proceeding with scraping")
+        
         # Use Botasaurus scraper
         job_text = scrape_job_posting(url)
         
@@ -420,11 +434,20 @@ async def analyze_job(request: Request):
         #classification = predict(job_text)
         classification = predict_job_posting(job_text)
         logger.info(f"Analyzed job posting from {url}")
-        return {
+        result =  {
             "url": url,
             "job_details": job_details,
             "classification": classification
         }
+        # Only store in database if scraping and prediction were successful
+        # and classification is not "Unable to Retrieve"
+        if job_text and classification not in ["Unable to Retrieve"]:
+            # Store in MongoDB
+            mongo_client.add_job(result, user_id)
+            logger.info(f"Stored new job analysis in database for URL: {url}")
+        
+        logger.info(f"Analyzed job posting from {url}")
+        return result
     
     except Exception as e:
         logger.error(f"Job analysis error: {e}")

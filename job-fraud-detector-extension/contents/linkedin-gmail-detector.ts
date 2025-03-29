@@ -115,6 +115,16 @@ const storage = new Storage
 
 const processedUrls = new Set()
 
+async function getUserId() {
+    //let userId = await storage.get("userId")
+    let userId = "user_123456789"
+    if (!userId) {
+        userId = "user_" + Math.random().toString(36).substring(2, 15)
+        await storage.set("userId", userId)
+    }
+    return userId
+}
+
 async function detectLinks() {
     console.log("Detector function called")
     const platforms = {
@@ -142,6 +152,7 @@ async function detectLinks() {
     
     if (links.length > 0) {
         try {
+            const userId = await getUserId()
             const validUrls = links.filter(url => {
                 try {
                     new URL(url)
@@ -163,7 +174,10 @@ async function detectLinks() {
                         headers: {
                             'Content-Type': 'application/json',
                         },
-                        body: JSON.stringify({ url: url })
+                        body: JSON.stringify({ 
+                            url : url,
+                            user_id : userId
+                        })
                     })
 
                     if (!response.ok) {
