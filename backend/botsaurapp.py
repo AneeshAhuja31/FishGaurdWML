@@ -453,6 +453,49 @@ async def analyze_job(request: Request):
         logger.error(f"Job analysis error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/update-classification")
+async def update_classification(request: Request):
+    try:
+        body = await request.json()
+        url = body.get('url')
+        new_classification = body.get('classification')
+        user_id = body.get('user_id')
+
+        if not url:
+            raise HTTPException(status_code=422,detail="URL is required")
+        
+        if not new_classification:
+            raise HTTPException(status_code=422,detail="Classification is required")
+        
+        if new_classification not in ["Legitimate", "Fraudulent", "Unrelated"]:
+            raise HTTPException(status_code=422, detail="Classification must be one of: Legitimate, Fraudulent, or Unrelated")
+        
+        mongo_client = app.state.mongo_client
+        
+        # Check if the URL exists in MongoDB
+        job_data = mongo_client.get_job_by_url(url)
+
+        if not job_data:
+            raise HTTPException(status_code=404, detail="URL not found in database")
+        updated = mongo_client.update_job_classification(url, new_classification, user_id)
+        
+        if not updated:
+            raise HTTPException(status_code=500, detail="Failed to update classification")
+        
+        logger.info(f"Updated classification for URL: {url} to {new_classification}")
+        return {
+            "classification": new_classification,
+            "message": "Classification updated successfully"
+        }
+    except HTTPException as he:
+        raise he
+    
+    except Exception as e:
+        logger.error(f"Error updating classification: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+    
+        
+
 from datetime import datetime
 @app.get("/health")
 async def health_check():

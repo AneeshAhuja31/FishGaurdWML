@@ -2,6 +2,7 @@ import pymongo
 from pymongo import MongoClient
 import logging
 from typing import Dict, Any, Optional
+from datetime import datetime
 
 logger = logging.getLogger(__name__)
 
@@ -67,3 +68,16 @@ class MongoDBClient:
         except Exception as e:
             logger.error(f"Error adding job to database: {e}")
             return False
+    
+    def update_job_classification(self,url,classification,user_id=None):
+        update_data = {
+            'classification':classification,
+            'updated_at': datetime.now()
+        }
+        if user_id:
+            update_data['updated_by'] = user_id
+        result = self.collection.update_one(
+            {'url':url},
+            {'$set':update_data}
+        )
+        return result.modified_count>0
