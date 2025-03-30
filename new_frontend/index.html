@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FishGuardian - Phishing Protection</title>
+    <meta name="description" content="Protect yourself from phishing scams with FishGuardian" />
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- IMPORTANT: DO NOT REMOVE THIS SCRIPT TAG OR THIS VERY COMMENT! -->
+    <script src="https://cdn.gpteng.co/gptengineer.js" type="module"></script>
+  </head>
+
+  <body>
+    <div id="stars-container"></div>
+
+    <header>
+      <div class="logo">
+        <div class="logo-circle"><img src="./icons/FISH.png" alt="" class="logo-img"></div>
+        <div class="logo-text">FishGuard</div>
+        </div>
+     
+      <nav>
+        <ul>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero">
+        <h1 class="main-heading">
+          Stay Vigilant, Stay Safe
+          <span class="break">Say No to</span>
+          <span class="gradient-text">Phishing!</span>
+        </h1>
+        <div class="underline-container">
+          <img src="./icons/double-underline.svg" alt="Decorative Underline" class="underline">
+        </div>
+        <p class="subtitle">
+          Providing a Chrome Based Extension Service To protect you from Phishing Scams... 
+          Say No To Phishing!
+        </p>
+
+        <div class="cta-buttons">
+          <button class="cta-primary">
+            <span class="chrome-icon"><i class="fa-brands fa-chrome"></i></span>
+            Download<span class="arrow">→</span>
+          </button>
+          <button class="cta-secondary" id="learn-more-btn">
+            <span class="star-icon">✦</span> Learn More
+          </button>
+        </div>
+
+        <div class="tagline-container">
+          <div class="tagline">
+            Don't take the bait—FishGuard's got your back!
+          </div>
+        </div>
+      </section>
+
+      <section id="features" class="features">
+        <div class="feature-card">
+          <div class="feature-image-container">
+            <div class="feature-image">
+              <img src="./icons/WhatsApp Image 2025-03-21 at 08.25.43_62dee83d.jpg" alt="URL Analysis">
+            </div>
+            <div class="feature-content">
+              <h3>URL ANALYSIS</h3>
+              <p>
+                Real-time phishing detection systems analyze different elements of emails to identify and prevent scams before they can harm users.
+              </p>
+            </div>
+          </div>
+          <div class="feature-text">
+            <h2>1. Real Time URL Analysis</h2>
+            <p>
+              FishGuard employs real-time URL analysis to instantly detect phishing links. Leveraging advanced algorithms, the platform analyzes characteristics of URLs to assess their legitimacy and alerts users before they can be harmed.
+            </p>
+          </div>
+        </div>
+
+        <div class="feature-card reverse">
+          <div class="feature-text">
+            <h2>2. Phishing Alerts and Statistics</h2>
+            <p>
+              Fish Guardian provides live count results of malicious links in your mail and LinkedIn, protecting you from scammers by flagging suspicious links in real-time as you browse!
+            </p>
+          </div>
+          <div class="feature-image-container">
+            <div class="feature-image">
+              <img src="./icons/WhatsApp Image 2025-03-21 at 08.25.58.jpeg" alt="Phishing Alerts">
+            </div>
+            <div class="feature-content">
+              <h3>Live Detection Stats:</h3>
+              <p>
+                Phishing Links Detected: 6<br>
+                Suspicious Jobs Identified: 0<br>
+                Malicious Jobs Flagged: 0
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-image-container">
+            <div class="feature-image">
+              <img src="./icons/workflow3.jpg" alt="LinkedIn Protection">
+            </div>
+            <div class="feature-content">
+              <h3>Phishing detection for LinkedIn</h3>
+              <p>
+                Protect yourself from LinkedIn phishing attempts where attackers impersonate recruiters or company representatives.
+              </p>
+            </div>
+          </div>
+          <div class="feature-text">
+            <h2>3. Multi Platform Suited</h2>
+            <p>
+              Our extension detects phishing links in LinkedIn messages using web scraping methods to extract message content. The scraped URLs are analyzed for phishing indicators, such as lookalike domains, insecure HTTP connections, and known malicious links. If a threat is detected, users receive real-time alerts, ensuring safer browsing and protection against scams.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="url-validator" class="url-validator">
+        <h2 class="gradient-text">Tag your URL manually!</h2>
+        <p class="subtitle">Providing users the ability to check URLs according to their preference</p>
+      
+        <div class="url-input-container">
+          <input type="text" id="url-input" placeholder="Enter your URL to check">
+          <div class="btn-container">
+            <button class="circle-btn" id="tag-button"><i class="fa-regular fa-circle-check"></i></button>
+            <button class="check-btn" id="tag-button"><i class="fa-regular fa-circle-check"></i></button>
+            <button class="cross-btn" id="untag-button"><i class="fa-regular fa-circle-xmark"></i></button>
+          </div>
+        </div>
+        
+        
+        <div id="notification-container"></div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="logo">
+          <div class="logo-circle">
+            <i class="fa-solid fa-fish"></i>
+          </div>
+          <span class="logo-text">FishGuard</span>
+        </div>
+        <div class="footer-links">
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+          </ul>
+        </div>
+        <div class="copyright">
+          &copy; 2023 FishGuardian. All rights reserved.
+        </div>
+      </div>
+    </footer>
+
+    <script>
+      // Stars background effect
+      document.addEventListener('DOMContentLoaded', function() {
+        const starsContainer = document.getElementById('stars-container');
+        const starCount = 100;
+        
+        for (let i = 0; i < starCount; i++) {
+          const star = document.createElement('div');
+          star.className = 'star';
+          star.style.left = `${Math.random() * 100}%`;
+          star.style.top = `${Math.random() * 100}%`;
+          star.style.animationDelay = `${Math.random() * 3}s`;
+          star.style.animationDuration = `${3 + Math.random() * 4}s`;
+          starsContainer.appendChild(star);
+        }
+        
+        // Smooth scrolling for Learn More button
+        document.getElementById('learn-more-btn').addEventListener('click', function() {
+          document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // URL validation
+        const tagButton = document.getElementById('tag-button');
+        const untagButton = document.getElementById('untag-button');
+        const urlInput = document.getElementById('url-input');
+        const notificationContainer = document.getElementById('notification-container');
+        
+        function showNotification(message, type) {
+          const notification = document.createElement('div');
+          notification.className = `notification ${type}`;
+          notification.textContent = message;
+          notificationContainer.appendChild(notification);
+          
+          setTimeout(() => {
+            notification.style.opacity = '0';
+            setTimeout(() => {
+              notification.remove();
+            }, 500);
+          }, 3000);
+        }
+        
+        tagButton.addEventListener('click', function() {
+          if (urlInput.value.trim() === '') {
+            showNotification('Please enter a URL', 'error');
+            return;
+          }
+          
+          // Simple URL validation for demo purposes
+          if (urlInput.value.includes('secure') || urlInput.value.includes('bank') || urlInput.value.includes('login')) {
+            showNotification('Potential phishing URL detected!', 'error');
+          } else {
+            showNotification('URL appears to be safe', 'success');
+          }
+        });
+        
+        untagButton.addEventListener('click', function() {
+          urlInput.value = '';
+          showNotification('URL input cleared', 'info');
+        });
+      });
+    </script>
+  </body>
+</html>
