@@ -26,7 +26,7 @@
       <nav>
         <ul>
           <li><a href="#features">Features</a></li>
-          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="pricing.html">Pricing</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
         </ul>
       </nav>
@@ -135,9 +135,10 @@
         <div class="url-input-container">
           <input type="text" id="url-input" placeholder="Enter your URL to check">
           <div class="btn-container">
-            <button class="circle-btn" id="tag-button"><i class="fa-regular fa-circle-check"></i></button>
-            <button class="check-btn" id="tag-button"><i class="fa-regular fa-circle-check"></i></button>
-            <button class="cross-btn" id="untag-button"><i class="fa-regular fa-circle-xmark"></i></button>
+            
+            <button class="check-btn" id="legitimate-button"><i class="fa-regular fa-circle-check"></i></button>
+            <button class="circle-btn" id="unrelated-button"><i class="fa-regular fa-circle-check"></i></button>
+            <button class="cross-btn" id="fraudulent-button"><i class="fa-regular fa-circle-xmark"></i></button>
           </div>
         </div>
         
@@ -188,45 +189,47 @@
           document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
         });
         
-        // URL validation
-        const tagButton = document.getElementById('tag-button');
-        const untagButton = document.getElementById('untag-button');
-        const urlInput = document.getElementById('url-input');
-        const notificationContainer = document.getElementById('notification-container');
+        // // URL validation
+        // const tagButton = document.getElementById('tag-button');
+        // const untagButton = document.getElementById('untag-button');
+        // const urlInput = document.getElementById('url-input');
+        // const notificationContainer = document.getElementById('notification-container');
         
-        function showNotification(message, type) {
-          const notification = document.createElement('div');
-          notification.className = `notification ${type}`;
-          notification.textContent = message;
-          notificationContainer.appendChild(notification);
+        // function showNotification(message, type) {
+        //   const notification = document.createElement('div');
+        //   notification.className = `notification ${type}`;
+        //   notification.textContent = message;
+        //   notificationContainer.appendChild(notification);
           
-          setTimeout(() => {
-            notification.style.opacity = '0';
-            setTimeout(() => {
-              notification.remove();
-            }, 500);
-          }, 3000);
-        }
+        //   setTimeout(() => {
+        //     notification.style.opacity = '0';
+        //     setTimeout(() => {
+        //       notification.remove();
+        //     }, 500);
+        //   }, 3000);
+        // }
         
-        tagButton.addEventListener('click', function() {
-          if (urlInput.value.trim() === '') {
-            showNotification('Please enter a URL', 'error');
-            return;
-          }
+        // tagButton.addEventListener('click', function() {
+        //   if (urlInput.value.trim() === '') {
+        //     showNotification('Please enter a URL', 'error');
+        //     return;
+        //   }
           
-          // Simple URL validation for demo purposes
-          if (urlInput.value.includes('secure') || urlInput.value.includes('bank') || urlInput.value.includes('login')) {
-            showNotification('Potential phishing URL detected!', 'error');
-          } else {
-            showNotification('URL appears to be safe', 'success');
-          }
-        });
+        //   // Simple URL validation for demo purposes
+        //   if (urlInput.value.includes('secure') || urlInput.value.includes('bank') || urlInput.value.includes('login')) {
+        //     showNotification('Potential phishing URL detected!', 'error');
+        //   } else {
+        //     showNotification('URL appears to be safe', 'success');
+        //   }
+        // });
         
-        untagButton.addEventListener('click', function() {
-          urlInput.value = '';
-          showNotification('URL input cleared', 'info');
-        });
-      });
+        // untagButton.addEventListener('click', function() {
+        //   urlInput.value = '';
+        //   showNotification('URL input cleared', 'info');
+        // });
+      }
+    );
     </script>
+    <script src="script2.js"></script>
   </body>
 </html>

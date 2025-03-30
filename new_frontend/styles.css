@@ -474,7 +474,7 @@ main {
   background-color: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 2rem;
-  color: var(--text-color);
+  color: black;
   outline: none;
   transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
