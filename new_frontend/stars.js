@@ -5,7 +5,7 @@ function createStarField() {
   // Clear any existing content
   stars.innerHTML = '';
   
-  // Number of stars to create
+  // Number of stars to creat
   const starCount = 100;
   
   // Create stars
