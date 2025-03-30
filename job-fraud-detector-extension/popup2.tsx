@@ -4,7 +4,7 @@ const IndexPopup = () => {
   const [legitimateCount, setLegitimateCount] = useState(33);
   const [unrelatedCount, setUnrelatedCount] = useState(28);
   const [fraudulentCount, setFraudulentCount] = useState(14);
-
+//hi
   useEffect(() => {
     const fetchCounts = () => {
       setLegitimateCount((prev) => prev + Math.floor(Math.random() * 2));
