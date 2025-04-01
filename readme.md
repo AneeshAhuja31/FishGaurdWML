@@ -1,6 +1,6 @@
 # SafeHire Wizard - Job Phishing Protection
 
-SafeHire Wizard is a Chrome-based extension designed to protect users from phishing scams and fraudulent job postings on platforms like LinkedIn and Gmail. The extension analyzes URLs in real-time to identify potentially malicious job listings and phishing attempts.
+SafeHire Wizard is a Chrome-based extension (using Plasmo) designed to protect users from phishing scams and fraudulent job postings on platforms like LinkedIn and Gmail. The extension analyzes URLs in real-time to identify potentially malicious job listings and phishing attempts.
 
 ## 🛡️ Features
 
