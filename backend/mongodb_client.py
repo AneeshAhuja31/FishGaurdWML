@@ -7,7 +7,7 @@ from datetime import datetime
 logger = logging.getLogger(__name__)
 
 class MongoDBClient:
-    def __init__(self, connection_string="mongodb+srv://notsomeoneyouexpected:B7JBGhk3oGeKWW7q@cluster0.mg4logn.mongodb.net/"):
+    def __init__(self, connection_string):
         try:
             self.client = MongoClient(connection_string)
             self.db = self.client.job_fraud_detector

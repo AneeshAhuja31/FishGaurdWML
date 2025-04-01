@@ -4,13 +4,13 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi_limiter import FastAPILimiter
 from urllib.parse import urlparse
 import redis.asyncio as redis
-import torch
+from dotenv import load_dotenv
 from transformers import BertTokenizer
 from bs4 import BeautifulSoup
 from model import JobPostingClassifier
 from botasaurus.user_agent import UserAgent
 import spacy
-import time
+import os
 from typing import List, Optional, Dict, Any
 import logging
 import sys
@@ -22,7 +22,12 @@ from mongodb_client import MongoDBClient
 from botasaurus.browser import browser,Driver
 from botasaurus.soupify import soupify
 
-genai.configure(api_key="AIzaSyD8r3yWvcVMYP-K-oqjP_leaB6TRkooO_o")
+load_dotenv()
+
+GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+MONGODB_URI = os.getenv("MONGODB_URI")
+
+genai.configure(api_key=GEMINI_API_KEY)
 
 logging.basicConfig(
     level=logging.INFO,
@@ -48,7 +53,7 @@ async def lifespan(app:FastAPI):
             decode_responses=True
         )
         await FastAPILimiter.init(redis_client)
-        app.state.mongo_client = MongoDBClient()
+        app.state.mongo_client = MongoDBClient(connection_string=MONGODB_URI)
         logger.info("Application startup complete - Redis initialized")
 
         yield
@@ -383,6 +388,168 @@ def extract_job_details(text):
 
     return job_info
 
+import re
+import requests
+def extract_job_id(url):
+    # Extract whatever content appears between /jobs/view/ and the next slash
+    match = re.search(r"/jobs/view/([^/]+)/", url)
+    return match.group(1) if match else None
+
+# @app.post("/query-linkedin-job")
+# async def query_linkedin_job(request:Request):
+#     try:
+#         body = await request.json()
+#         url = body.get('url')
+#         user_id = body.get('user_id')
+        
+#         if not url:
+#             raise HTTPException(status_code=422, detail="URL is required")
+        
+#         job_id = extract_job_id(url)
+#         if not job_id:
+#             raise HTTPException(status_code=400, detail="Invalid LinkedIn job URL")
+
+#         search_url = f"https://www.google.com/search?q={job_id}"
+#         # headers = {
+#         #     "User-Agent": UserAgent.RANDOM,
+#         #     "Accept-Language": "en-US,en;q=0.9",
+#         #     "Referer": "https://www.google.com/",
+#         #     "Accept-Encoding": "gzip, deflate, br",
+#         #     "Connection": "keep-alive"
+#         # }
+#         headers = {"User-Agent": UserAgent.RANDOM}
+
+#         # Send GET request to Google
+#         response = requests.get(search_url, headers=headers)
+#         if response is None: print("RESPONSE GONE WRONG")
+#         soup = BeautifulSoup(response.text, "html.parser")
+#         first_heading = soup.find("h3",class_=["LC20lb","MBeuO","DKV0Md"])
+        
+#         first_result = soup.find("div", class_=["VwiC3b", "yXK7lf", "p4wth", "r025kc", "hJNv6b", "Hdw6tb"])
+#         span_first_result = None
+#         if first_result:
+#             span_first_result = first_result.find("span").get_text(strip=True)
+#             print(span_first_result)
+#         job_text = ""
+#         if first_heading:
+#             job_text += first_heading.text + " "
+#         if span_first_result:
+#             job_text += span_first_result
+#         t = job_text
+#         if t.strip():
+#             print("Job Preview Snippet:",t)
+#         else:
+#             print("No job snippet found!") 
+#             logger.warning(f"No content retrieved for URL: {url}")
+#             return {
+#                 "url": url,
+#                 "classification": "Unable to Retrieve",
+#                 "job_details": {},
+#                 "error": "Could not scrape job posting content"
+#             }
+#         job_details = extract_job_details(job_text)
+#         print(f"THE JOB TEXT IS: {job_text}")
+#         print(f"THE JOB DETAILS AFTER NER ARE: {job_details}")
+        
+#         #classification = predict(job_text)
+#         classification = predict_job_posting(job_text)
+#         logger.info(f"Analyzed job posting from {url}")
+#         result =  {
+#             "url": url,
+#             "job_details": job_details,
+#             "classification": classification
+#         }
+#         logger.info(f"Analyzed job posting from {url}")
+#         return result
+    
+#     except Exception as e:
+#         logger.error(f"Job analysis error: {e}")
+#         raise HTTPException(status_code=500, detail=str(e))
+
+# @app.post("/query-linkedin-job")
+# async def query_linkedin_job(request:Request):
+#     try:
+#         body = await request.json()
+#         url = body.get('url')
+#         user_id = body.get('user_id')
+        
+#         if not url:
+#             raise HTTPException(status_code=422, detail="URL is required")
+        
+#         job_id = extract_job_id(url)
+#         if not job_id:
+#             raise HTTPException(status_code=400, detail="Invalid LinkedIn job URL")
+
+#         # Option 1: Use a more specific search query that includes LinkedIn in it
+#         search_url = f"https://www.google.com/search?q=site:linkedin.com+{job_id}+job"
+        
+#         headers = {"User-Agent": UserAgent.RANDOM}
+
+#         # Send GET request to Google
+#         response = requests.get(search_url, headers=headers)
+#         if response is None: 
+#             print("RESPONSE GONE WRONG")
+#             return {
+#                 "url": url,
+#                 "classification": "Unable to Retrieve",
+#                 "job_details": {},
+#                 "error": "Search request failed"
+#             }
+            
+#         soup = BeautifulSoup(response.text, "html.parser")
+        
+#         # Add more flexible extraction logic - try multiple selectors
+#         job_text = ""
+        
+#         # Try to get the title from different possible selectors
+#         first_heading = soup.find("h3", class_=["LC20lb", "MBeuO", "DKV0Md"])
+#         if first_heading:
+#             job_text += first_heading.text + " "
+        
+#         # Try to get content from different possible selectors
+#         first_result = soup.find("div", class_=["VwiC3b", "yXK7lf", "p4wth", "r025kc", "hJNv6b", "Hdw6tb"])
+#         if first_result:
+#             span_first_result = first_result.find("span")
+#             if span_first_result:
+#                 job_text += span_first_result.get_text(strip=True)
+        
+#         # Fallback option: Try to get any snippet text
+#         if not job_text.strip():
+#             snippets = soup.select("div.BNeawe")
+#             if snippets:
+#                 for snippet in snippets[:2]:  # Get first 2 snippets
+#                     job_text += snippet.get_text(strip=True) + " "
+        
+#         # # If still empty, try a different approach
+#         # if not job_text.strip():
+#         #     # Option 2: Directly use Botasaurus to scrape the LinkedIn job page
+#         #     print("No job snippet found from Google, attempting direct LinkedIn scraping")
+#         #     job_text = scrape_job_posting(url)
+#                     if not job_text:
+#                         print("Direct LinkedIn scraping also failed")
+#                         return {
+#                             "url": url,
+#                             "classification": "Unable to Retrieve",
+#                             "job_details": {},
+#                             "error": "Could not scrape job posting content"
+#                         }
+        
+#         print("Job text extracted:", job_text)
+#         job_details = extract_job_details(job_text)
+#         classification = predict_job_posting(job_text)
+        
+#         logger.info(f"Analyzed job posting from {url}")
+#         result = {
+#             "url": url,
+#             "job_details": job_details,
+#             "classification": classification
+#         }
+#         return result
+    
+#     except Exception as e:
+#         logger.error(f"Job analysis error: {e}")
+#         raise HTTPException(status_code=500, detail=str(e))
+
 @app.post("/analyze-job")
 async def analyze_job(request: Request):
     try:
@@ -402,6 +569,20 @@ async def analyze_job(request: Request):
                 "job_details": {},
                 "error": "Only HTTP and HTTPS URLs are supported"
             }
+        
+        redis_client = await FastAPILimiter.redis
+        cache_key = f"job_analysis:{url}"
+        cached_result = await redis_client.get(cache_key)
+        
+        
+        if cached_result:
+            logger.info(f"Retrieved cached result from Redis for URL: {url}")
+            import json
+            return json.loads(cached_result)
+        
+        # If not in cache, proceed with scraping and analysis
+        logger.info(f"No cached result found for URL: {url}, proceeding with scraping")
+        
         # First, check if the URL exists in MongoDB
         mongo_client = app.state.mongo_client
         cached_result = mongo_client.get_job_by_url(url)
